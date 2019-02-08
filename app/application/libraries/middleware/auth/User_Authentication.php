@@ -16,7 +16,7 @@ class User_Authentication {
 		$email = $this->ci->input->post('email');
 		$password = $this->ci->input->post('password');
 
-		$logged = $this->ci->user_model->find($email, $password);
+		$logged = $this->ci->user_model->find_user($email, $password);
 		
 		if ($logged) {
 			$this->ci->session->set_userdata([

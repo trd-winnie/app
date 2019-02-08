@@ -5,7 +5,7 @@ class User_model extends CI_Model {
 
 	protected $table = 'users';
 
-	public function find(string $email, string $password)
+	public function find_user(string $email, string $password)
 	{
 		if (empty($email) || empty($password)) {
 			return;
