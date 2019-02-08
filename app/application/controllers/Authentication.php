@@ -60,14 +60,15 @@ class Authentication extends CI_Controller {
 		$page = '';
 		if ($this->session->logged_in) {
 			if ($this->session->role == 1) {
-				dd('admin');
+				$page = 'admin/home';
 			}else {
-				dd('user');
+				$page = 'user/home';
 			}
 		}else {
 			$page = 'auth/login_form';
-			$this->load->view('layout', compact('page'));
 		}
+		
+		$this->load->view('layout', compact('page'));
 	}
 
 }

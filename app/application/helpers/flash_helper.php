@@ -19,8 +19,11 @@ if ( ! function_exists('flash_messages'))
 		$type = $ci->session->flash_type;
 		$msg = $ci->session->flash_msg;
 
-		echo '<div class="alert alert-'.$type.'">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.$msg.'
-		</div>';
+		if ($type) {
+			echo '<div class="alert alert-'.$type.'">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.$msg.'
+			</div>';
+		}
+
 	}
 }
