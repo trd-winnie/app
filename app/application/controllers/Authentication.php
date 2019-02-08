@@ -57,18 +57,18 @@ class Authentication extends CI_Controller {
 
 	private function _redirect_if_authenticated()
 	{
-		$page = '';
 		if ($this->session->logged_in) {
+			$page = '';
 			if ($this->session->role == 1) {
 				$page = 'admin/home';
 			}else {
 				$page = 'user/home';
 			}
+			$this->load->view($page);
 		}else {
-			$page = 'auth/login_form';
+			$this->load->view('auth/login_form');
 		}
 		
-		$this->load->view('layout', compact('page'));
 	}
 
 }
