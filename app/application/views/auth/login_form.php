@@ -2,17 +2,26 @@
 		<div class="card card-login mx-auto mt-5">
 			<div class="card-header">Login</div>
 			<div class="card-body">
-				<form>
+
+				<?php if (validation_errors()): ?>
+					<div class="alert alert-danger">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						<?php echo validation_errors(); ?>
+					</div>
+				<?php endif; ?>
+				<?php flash_messages() ?>
+
+				<?= form_open('login/submit') ?>
 					<div class="form-group">
 						<div class="form-label-group">
-							<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
-							<label for="inputEmail">Email address</label>
+							<input type="email" id="email" name="email" value="<?= set_value('email')?>" class="form-control" placeholder="Email address" autofocus="autofocus">
+							<label for="email">Email address</label>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="form-label-group">
-							<input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
-							<label for="inputPassword">Password</label>
+							<input type="password" id="password" name="password" class="form-control" placeholder="Password">
+							<label for="password" >Password</label>
 						</div>
 					</div>
 					<div class="form-group">
@@ -23,7 +32,7 @@
 							</label>
 						</div>
 					</div>
-					<a class="btn btn-primary btn-block" href="index.html">Login</a>
+					<button type="submit" class="btn btn-primary btn-block">Login</button>
 				</form>
 				<div class="text-center">
 					<a class="d-block small mt-3" href="register.html">Register an Account</a>
