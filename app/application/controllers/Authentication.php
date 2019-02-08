@@ -7,11 +7,12 @@ class Authentication extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('user_model');
+		$this->load->library('middleware/auth/User_Authentication', null, 'user_auth');
 	}
 	
 	public function login_form()
 	{
-		$this->_redirect_if_authenticated();
+		$this->user_auth->redirect_if_authenticated();
 	}
 
 	public function login_submit()
@@ -22,7 +23,7 @@ class Authentication extends CI_Controller {
 		if ($this->form_validation->run() == FALSE) {
 			$this->login_form();
 		}else {
-			$this->_validate_user();
+			$this->user_auth->validate_user();
 		}
 	}
 
@@ -33,42 +34,6 @@ class Authentication extends CI_Controller {
 		]);
 
 		$this->login_form();
-	}
-
-	private function _validate_user()
-	{
-		$email = $this->input->post('email');
-		$password = $this->input->post('password');
-
-		$logged = $this->user_model->find($email, $password);
-		
-		if ($logged) {
-			$this->session->set_userdata([
-				'email' => $logged->email,
-				'role' => $logged->role_id,
-				'logged_in' => true,
-			]);
-		}else {
-			flash('danger', 'Invalid email or password.');
-		}
-
-		$this->_redirect_if_authenticated();
-	}
-
-	private function _redirect_if_authenticated()
-	{
-		if ($this->session->logged_in) {
-			$page = '';
-			if ($this->session->role == 1) {
-				$page = 'admin/home';
-			}else {
-				$page = 'user/home';
-			}
-			$this->load->view($page);
-		}else {
-			$this->load->view('auth/login_form');
-		}
-		
 	}
 
 }
