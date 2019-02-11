@@ -7,7 +7,7 @@ class Authentication extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('user_model');
-		$this->load->library('middleware/auth/User_Authentication', null, 'user_auth');
+		$this->load->library('middleware/User_Authentication', null, 'user_auth');
 	}
 	
 	public function login_form()
